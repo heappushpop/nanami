@@ -1,0 +1,15 @@
+{{define "title"}}{{.Title}}{{end}}
+
+{{define "main"}}
+    <form class="form" method="post" name="config">
+        <input autofocus class="form__input" name="domain" placeholder="Domain" size="1" spellcheck="false" value="{{.Config.Domain}}" />
+        {{if .DomainErrors}}
+            <ul class="form__errors">
+                {{range .DomainErrors}}
+                    <li>{{.}}</li>
+                {{end}}
+            </ul>
+        {{end}}
+        <button class="button">Save</button>
+    </form>
+{{end}}

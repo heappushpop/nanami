@@ -1,0 +1,23 @@
+{{define "title"}}{{.Title}}{{end}}
+
+{{define "main"}}
+    <form class="form" method="post">
+        <input autofocus class="form__input" name="name" placeholder="Name" size="1" spellcheck="false" />
+        {{if .NameErrors}}
+            <ul class="form__errors">
+                {{range .NameErrors}}
+                    <li>{{.}}</li>
+                {{end}}
+            </ul>
+        {{end}}
+        <input class="form__input" name="password" placeholder="Password" size="1" type="password" />
+        {{if .PasswordErrors}}
+            <ul class="form__errors">
+                {{range .PasswordErrors}}
+                    <li>{{.}}</li>
+                {{end}}
+            </ul>
+        {{end}}
+        <button class="button">Login</button>
+    </form>
+{{end}}

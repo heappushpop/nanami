@@ -1,0 +1,33 @@
+{{define "title"}}{{.Title}}{{end}}
+
+{{define "main"}}
+    <form class="form" method="post" novalidate>
+        <input autofocus class="form__input" name="email" placeholder="Email" size="1" spellcheck="false" type="email" />
+        {{if .EmailErrors}}
+            <ul class="form__errors">
+                {{range .EmailErrors}}
+                    <li>{{.}}</li>
+                {{end}}
+            </ul>
+        {{end}}
+        <input name="action" type="hidden" value="create" />
+        <button class="button">Create</button>
+    </form>
+    <div class="clients">
+        {{range .Clients}}
+            <div class="clients__client">
+                <p>{{.Email}}</p>
+                <button class="button button--red" command="show-modal" commandfor="delete-modal" data-email="{{.Email}}">Delete</button>
+            </div>
+        {{end}}
+    </div>
+    <dialog class="modal" closedby="any" id="delete-modal">
+        <p class="modal__title">Are you sure?</p>
+        <form class="modal__buttons" method="post" name="delete">
+            <input name="action" type="hidden" value="delete" />
+            <input name="email" type="hidden" />
+            <button class="button button--red">Yes</button>
+            <button class="button" command="close" commandfor="delete-modal" type="button">No</button>
+        </form>
+    </dialog>
+{{end}}

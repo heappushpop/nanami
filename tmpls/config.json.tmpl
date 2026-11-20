@@ -1,0 +1,79 @@
+{
+    "api": {
+        "services": [
+            "HandlerService",
+            "StatsService"
+        ],
+        "tag": "api"
+    },
+    "dns": {
+        "servers": [
+            "8.8.8.8",
+            "8.8.4.4"
+        ]
+    },
+    "inbounds": [
+        {
+            "listen": "127.0.0.1",
+            "port": 8081,
+            "protocol": "vless",
+            "settings": {
+                "decryption": "none",
+                "users": {{.}}
+            },
+            "sniffing": {
+                "destOverride": [
+                    "http",
+                    "quic",
+                    "tls"
+                ],
+                "enabled": true,
+                "routeOnly": true
+            },
+            "streamSettings": {
+                "method": "xhttp",
+                "xhttpSettings": {
+                    "path": "/vless"
+                }
+            },
+            "tag": "vless"
+        },
+        {
+            "listen": "127.0.0.1",
+            "port": 8082,
+            "protocol": "tunnel",
+            "tag": "api"
+        }
+    ],
+    "log": {
+        "access": "none",
+        "dnsLog": true,
+        "error": "none",
+        "logLevel": "debug"
+    },
+    "outbounds": [
+        {
+            "protocol": "freedom"
+        }
+    ],
+    "policy": {
+        "levels": {
+            "0": {
+                "statsUserDownlink": true,
+                "statsUserOnline": true,
+                "statsUserUplink": true
+            }
+        }
+    },
+    "routing": {
+        "rules": [
+            {
+                "inboundTag": [
+                    "api"
+                ],
+                "outboundTag": "api"
+            }
+        ]
+    },
+    "stats": {}
+}

@@ -1,0 +1,11 @@
+{
+	log {
+		format console
+		level ERROR
+	}
+}
+
+{{if .}}{{.}}{{else}}127.0.0.1{{end}} {
+	reverse_proxy /vless/* h2c://127.0.0.1:8081
+	reverse_proxy 127.0.0.1:8080
+}
